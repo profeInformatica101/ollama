@@ -1,4 +1,3 @@
-
 # Cheat Sheet de **Ollama** y uso de **DeepSeek** (Linux)
 
 > Guía rápida para instalar, configurar y usar modelos locales con **Ollama** en Linux, con ejemplos listos para **DAW** y **DAM**.
@@ -45,8 +44,11 @@ ollama run llama3:8b
 # Descargar / actualizar modelo
 ollama pull deepseek-r1:1.5b
 
-# Listar modelos locales
+# Listar modelos locales (ya descargados)
 ollama list
+
+# Ver detalles de un modelo
+ollama show llama3:8b
 
 # Ejecutar de forma interactiva (mantiene contexto en esa sesión)
 ollama run deepseek-r1:1.5b
@@ -60,6 +62,24 @@ ollama stop llama3:8b
 
 # Eliminar un modelo
 ollama rm llama3:8b
+```
+
+---
+
+## 🌍 ¿Dónde ver más modelos disponibles?
+👉 Catálogo oficial de modelos: [https://ollama.com/library](https://ollama.com/library)  
+
+Allí encontrarás nombres, tamaños y variantes listos para usar.  
+Algunos ejemplos:
+- `llama3:8b`, `llama3:70b`
+- `mistral:7b`
+- `codellama:7b`
+- `qwen2:7b`
+- `deepseek-r1:1.5b`
+
+Para instalarlos:
+```bash
+ollama pull nombre_del_modelo
 ```
 
 ---
@@ -101,13 +121,11 @@ ollama run nuevo-contexto
 
 ```bash
 # Historial acumulado
-printf "Usuario: Explica la fotosíntesis.
-" > conversacion.txt
+printf "Usuario: Explica la fotosíntesis.\n" > conversacion.txt
 cat conversacion.txt | ollama run nuevo-contexto
 
 # Añadir pregunta y reenviar
-printf "Usuario: ¿Relación con la respiración celular?
-" >> conversacion.txt
+printf "Usuario: ¿Relación con la respiración celular?\n" >> conversacion.txt
 cat conversacion.txt | ollama run nuevo-contexto
 ```
 
@@ -115,7 +133,8 @@ cat conversacion.txt | ollama run nuevo-contexto
 
 ## 🧪 API HTTP (localhost:11434)
 ```bash
-curl http://localhost:11434/api/generate   -d '{
+curl http://localhost:11434/api/generate \
+  -d '{
     "model": "llama3:8b",
     "prompt": "Resume en 3 puntos la fotosíntesis.",
     "options": { "temperature": 0.4, "num_ctx": 4096, "num_predict": 160 }
@@ -171,6 +190,7 @@ PARAMETER temperature 0.3
 ---
 
 ## 📚 Enlaces útiles
+- Catálogo de modelos: https://ollama.com/library
 - Modelfile (docs): https://github.com/ollama/ollama/blob/main/docs/modelfile.md
 - API: https://github.com/ollama/ollama/blob/main/docs/api.md
 - Modelos populares: `llama3`, `mistral`, `qwen2`, `codellama`, `deepseek-r1`
